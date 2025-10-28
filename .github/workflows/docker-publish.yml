@@ -56,3 +56,6 @@ jobs:
           push: true
           secrets:
             sentry_auth_token=${{ env.SENTRY_AUTH_TOKEN }}
+
+      - name: Deploy
+        run: curl ${{ secrets.DEPLOY_URL }}
