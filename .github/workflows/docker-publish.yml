@@ -1,0 +1,58 @@
+name: Build & Push Docker Image
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log into Infisical
+        uses: Infisical/secrets-action@v1.0.12
+        with:
+          method: "universal"
+          domain: "https://infisical.n08i40k.ru"
+          client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
+          client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          secret-path: "/ci"
+          env-slug: "dev"
+          project-slug: "schedule-w-p5-f"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.11.1
+
+      - name: Log into registry
+        uses: docker/login-action@v3.4.0
+        with:
+          registry: registry.n08i40k.ru
+          username: ${{ env.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ env.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5.7.0
+        with:
+          images: registry.n08i40k.ru/n08i40k/schedule-telegram-bot
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: true
+          secrets:
+            sentry_auth_token=${{ env.SENTRY_AUTH_TOKEN }}

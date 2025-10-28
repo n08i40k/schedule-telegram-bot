@@ -1,0 +1,29 @@
+{
+  "name": "schedule-bot",
+  "version": "1.0.0",
+  "description": "Telegram inline bot for daily schedule",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc && pnpm sentry:sourcemaps",
+    "dev": "ts-node src/index.ts",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org schedule-parser --project telegram-bot ./dist && sentry-cli --url https://sentry.n08i40k.ru/ sourcemaps upload --org schedule-parser --project telegram-bot ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sentry/cli": "^2.57.0",
+    "@sentry/node": "^10.22.0",
+    "axios": "^1.13.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
+    "telegraf": "^4.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
