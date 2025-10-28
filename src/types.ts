@@ -40,6 +40,7 @@ export enum LessonType {
   COURSE_PROJECT,
   COURSE_PROJECT_DEFENSE,
   PRACTICE,
+  DIFFERENTIATED_EXAM,
 }
 
 export interface LessonBoundaries {

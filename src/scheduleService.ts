@@ -10,12 +10,13 @@ const LESSON_TYPE_LABEL: Record<LessonType, string> = {
   [LessonType.BREAK]: 'Перемена',
   [LessonType.CONSULTATION]: 'Консультация',
   [LessonType.INDEPENDENT_WORK]: 'Самостоятельная работа',
-  [LessonType.EXAM]: 'Экзамен',
-  [LessonType.EXAM_WITH_GRADE]: 'Экзамен с оценкой',
+  [LessonType.EXAM]: 'Зачёт',
+  [LessonType.EXAM_WITH_GRADE]: 'Зачёт с оценкой',
   [LessonType.EXAM_DEFAULT]: 'Экзамен',
   [LessonType.COURSE_PROJECT]: 'Курсовой проект',
   [LessonType.COURSE_PROJECT_DEFENSE]: 'Защита курсового проекта',
   [LessonType.PRACTICE]: 'Практика',
+  [LessonType.DIFFERENTIATED_EXAM]: 'Дифференцированный зачёт',
 };
 
 export class BotError extends Error {
